@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Me</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden; /* no scroll */
+      background: #12141f;
+      color: #f0f0f0;
+    }
+
+    #bgCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none; /* don’t block interactions */
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      display: block;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      background: rgba(44, 47, 74, 0.85);
+      border-radius: 20px;
+      padding: 40px 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      max-width: 480px;
+      width: 100%;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      color: #f0f0f0;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .container:hover {
+      box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+    }
+
+    h1 {
+      font-weight: 500;
+      font-size: 2.2rem;
+      margin: 0;
+      text-align: center;
+      color: #9b59b6;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px #8e44ad;
+      position: relative;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #9b59b6;
+      border-radius: 3px;
+      margin: 8px auto 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #dcdde1;
+    }
+
+    input, textarea {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 15px 20px;
+      border: 2px solid #5a5f8e;
+      border-radius: 12px;
+      background-color: #1f2233;
+      color: #f0f0f0;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #8a8ebf;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #9b59b6;
+      box-shadow: 0 0 8px #9b59b6;
+      background-color: #2c2f4a;
+    }
+
+    button {
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+      color: white;
+      padding: 15px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(155,89,182,0.6);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #8e44ad, #7d3c98);
+      box-shadow: 0 8px 20px rgba(142,68,173,0.8);
+    }
+
+    .btn-back {
+      background: #3b3f6e;
+      color: #dcdde1;
+      font-weight: 500;
+      padding: 12px 0;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      box-shadow: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: #575a95;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #8a8ebf;
+      font-size: 0.9rem;
+      user-select: none;
+      position: relative;
+      z-index: 10;
+    }
+
+    footer a {
+      color: #9b59b6;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        padding: 30px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="container">
+    <h1>Contact Me</h1>
+    <form id="contactForm" novalidate>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="example@email.com" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+    <button class="btn-back" onclick="goBack()">← Back to portfolio</button>
+  </div>
+
+  <footer>
+    <p>Contact: 
+      <a href="mailto:example@email.com">example@email.com</a> |
+      <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+      <a href="https://github.com/yourprofile" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    // GSAP animations for text and form
+    gsap.from("h1", {
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.3
+    });
+
+    gsap.from("form label", {
+      y: 30,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      stagger: 0.15,
+      delay: 0.8
+    });
+
+    gsap.from("form input, form textarea, form button", {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      stagger: 0.15,
+      delay: 1.2
+    });
+
+    gsap.from(".btn-back", {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out",
+      delay: 1.6
+    });
+
+    // Simple form validation and alert
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      if (!name || !email || !message) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email.');
+        return;
+      }
+
+      alert(`Message sent successfully!\nThank you, ${name}!`);
+      form.reset();
+    });
+
+    function goBack() {
+      window.location.href = 'portfolio.html'; // change to your actual page
+    }
+
+    // Background animated particles on canvas
+
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let particles = [];
+
+    function initCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = 1 + Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.alpha = 0.1 + Math.random() * 0.3;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > width) this.speedX *= -1;
+        if (this.y < 0 || this.y > height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(155,89,182,${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    function createParticles(num = 100) {
+      particles = [];
+      for(let i=0; i<num; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      for(let p of particles) {
+        p.update();
+        p.draw();
+      }
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+      initCanvas();
+      createParticles(100);
+    });
+
+    initCanvas();
+    createParticles(100);
+    animateParticles();
+  </script>
+
+</body>
+</html>

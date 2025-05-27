@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio - Web Projects</title>
+  <meta name="description" content="Professional portfolio with my completed web projects. Projects in front-end and back-end development.">
+  <style>
+    /* Fundal canvas full screen */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: #3C2A4D;
+    }
+    #backgroundCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: linear-gradient(135deg, #F9F3EC, #D9C9F4);
+      display: block;
+    }
+    .portfolio-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .animated-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 50px;
+      background: linear-gradient(90deg, #7F6EBD, #C9B9E8, #7F6EBD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shine 6s linear infinite;
+    }
+
+    @keyframes shine {
+      0% { background-position: -500px; }
+      100% { background-position: 500px; }
+    }
+
+    .projects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .project-card {
+      background-color: #ddd;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 500px;
+      flex: 1 1 450px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      color: #3C2A4D;
+      backdrop-filter: saturate(180%) blur(10px);
+      background: rgba(221, 221, 221, 0.8);
+    }
+
+    .project-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px rgba(127,110,189,0.4);
+    }
+
+    .project-title {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #5A4D6D;
+    }
+
+    .project-description {
+      margin-bottom: 20px;
+      color: #4a3f61;
+      font-size: 1rem;
+    }
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 460px;
+      height: 280px;
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: 10px;
+      user-select: none;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #A57FFF;
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(165, 127, 255, 0.6);
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-btn:hover {
+      background-color: #7F6EBD;
+    }
+
+    .carousel-btn.prev {
+      left: 10px;
+    }
+
+    .carousel-btn.next {
+      right: 10px;
+    }
+
+    .carousel-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    footer {
+      background-color: #7F6EBD;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 1;
+    }
+    footer a {
+      color: #D9C9F4;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="backgroundCanvas" aria-hidden="true"></canvas>
+
+  <section class="portfolio-section" role="main">
+    <h2 class="animated-title">My Projects</h2>
+    <div class="projects">
+
+      <!-- First project -->
+      <article class="project-card" onclick="window.location.href='project1.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='project1.html'}" aria-label="View Brewly Café project">
+        <h3 class="project-title">Brewly Café</h3>
+        <p class="project-description">A complete project for a café, with an ordering system and intuitive interface, built with HTML, CSS, and JavaScript.</p>
+        <div class="carousel-container" aria-label="Brewly Café image gallery">
+          <div class="carousel" id="carousel1">
+            <img src="img/1.jpg" alt="Brewly Café Image 1" loading="lazy" />
+            <img src="img/2.jpg" alt="Brewly Café Image 2" loading="lazy" />
+            <img src="img/3.jpg" alt="Brewly Café Image 3" loading="lazy" />
+            <img src="img/4.jpg" alt="Brewly Café Image 4" loading="lazy" />
+            <img src="img/5.jpg" alt="Brewly Café Image 5" loading="lazy" />
+          </div>
+          <button class="carousel-btn prev" onclick="prevSlide('carousel1')" title="Previous image" aria-label="Previous image">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button class="carousel-btn next" onclick="nextSlide('carousel1')" title="Next image" aria-label="Next image">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+      </article>
+
+      <!-- Second project -->
+      <article class="project-card" onclick="window.location.href='project2.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='project2.html'}" aria-label="View Clothes project">
+        <h3 class="project-title">Clothes</h3>
+        <p class="project-description">An e-commerce website for clothing, featuring advanced functions like dark mode, slider, category pages, and add-to-cart feedback.</p>
+        <div class="carousel-container" aria-label="Clothes image gallery">
+          <div class="carousel" id="carousel2">
+            <img src="img/7.jpg" alt="Clothes Image 7" loading="lazy" />
+            <img src="img/8.jpg" alt="Clothes Image 8" loading="lazy" />
+            <img src="img/9.jpg" alt="Clothes Image 9" loading="lazy" />
+            <img src="img/10.jpg" alt="Clothes Image 10" loading="lazy" />
+            <img src="img/11.jpg" alt="Clothes Image 11" loading="lazy" />
+          </div>
+          <button class="carousel-btn prev" onclick="prevSlide('carousel2')" title="Previous image" aria-label="Previous image">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button class="carousel-btn next" onclick="nextSlide('carousel2')" title="Next image" aria-label="Next image">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Contact me: 
+      <a href="mailto:iulia_benko@yahoo.com" aria-label="Send email">iulia_benko@yahoo.com</a> | 
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a> | 
+      <a href="https://github.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GitHub</a>
+    </p>
+  </footer>
+
+  <script>
+    // Carousel functions
+    function updateCarousel(id) {
+      const carousel = document.getElementById(id);
+      const slides = carousel.querySelectorAll("img");
+      const slideWidth = slides[0].clientWidth;
+      let index = parseInt(carousel.getAttribute('data-index')) || 0;
+      carousel.style.transform = `translateX(-${index * slideWidth}px)`;
+    }
+
+    function nextSlide(id) {
+      const carousel = document.getElementById(id);
+      const slides = carousel.querySelectorAll("img");
+      let index = parseInt(carousel.getAttribute('data-index')) || 0;
+      if (index < slides.length - 1) index++;
+      carousel.setAttribute('data-index', index);
+      updateCarousel(id);
+    }
+
+    function prevSlide(id) {
+      const carousel = document.getElementById(id);
+      let index = parseInt(carousel.getAttribute('data-index')) || 0;
+      if (index > 0) index--;
+      carousel.setAttribute('data-index', index);
+      updateCarousel(id);
+    }
+
+    window.addEventListener('resize', () => {
+      updateCarousel('carousel1');
+      updateCarousel('carousel2');
+    });
+
+    window.addEventListener('load', () => {
+      updateCarousel('carousel1');
+      updateCarousel('carousel2');
+      initCanvas();
+    });
+
+    // Canvas background animation
+    function initCanvas() {
+      const canvas = document.getElementById('backgroundCanvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * devicePixelRatio;
+        canvas.height = height * devicePixelRatio;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(devicePixelRatio, devicePixelRatio);
+      }
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.size = 1 + Math.random() * 2;
+          this.speedX = (Math.random() - 0.5) * 0.3;
+          this.speedY = (Math.random() - 0.5) * 0.3;
+          this.alpha = 0.05 + Math.random() * 0.1;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+            this.reset();
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(127, 110, 189, ${this.alpha})`;
+          ctx.shadowColor = `rgba(127, 110, 189, ${this.alpha})`;
+          ctx.shadowBlur = 10;
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function createParticles(num) {
+        particles = [];
+        for (let i = 0; i < num; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        // subtle gradient overlay
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, 'rgba(201, 185, 232, 0.15)');
+        grad.addColorStop(1, 'rgba(201, 185, 232, 0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      resize();
+      createParticles(80);
+      animate();
+
+      window.addEventListener('resize', () => {
+        resize();
+        createParticles(80);
+      });
+    }
+  </script>
+
+</body>
+</html>

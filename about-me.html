@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me - Example</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Background and reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: #12141f;
+      color: #f0f0f0;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* Background canvas */
+    #bgCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      display: block;
+    }
+    /* Main container */
+    .about-me {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 40px 30px;
+      background: rgba(26, 26, 46, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      color: #f0f0f0;
+      position: relative;
+      z-index: 10; /* above canvas */
+    }
+
+    .about-content {
+      display: flex;
+      gap: 50px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .about-text {
+      flex: 1 1 300px;
+    }
+
+    .about-text h2 {
+      font-size: 3.2rem;
+      margin-bottom: 15px;
+      color: #9b59b6;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .about-text h2::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #9b59b6;
+      border-radius: 3px;
+      margin-top: 8px;
+    }
+
+    .about-text p {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: #dcdde1;
+      font-weight: 300;
+      margin-top: 20px;
+      max-width: 500px;
+    }
+
+    .about-lists {
+      flex: 1 1 350px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .about-list {
+      flex: 1 1 160px;
+    }
+
+    .about-list h3 {
+      font-size: 1.8rem;
+      margin-bottom: 18px;
+      color: #8e44ad;
+      border-bottom: 3px solid #8e44ad;
+      padding-bottom: 6px;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      font-size: 1.15rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      cursor: default;
+      transition: color 0.3s ease, transform 0.3s ease;
+      font-weight: 400;
+    }
+    li:hover {
+      color: #dcdde1;
+      transform: translateX(8px);
+    }
+
+    .icon {
+      display: inline-block;
+      margin-right: 14px;
+      font-size: 1.6rem;
+      user-select: none;
+      transition: transform 0.3s ease;
+      color: #a29bfe;
+    }
+
+    li:hover .icon {
+      transform: scale(1.4) rotate(15deg);
+      color: #f8c291;
+    }
+
+    @media (max-width: 720px) {
+      .about-content {
+        flex-direction: column;
+      }
+      .about-lists {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .about-list {
+        flex: 1 1 45%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <section class="about-me" id="about">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>About Me</h2>
+        <p>I'm Iulia, a passionate web designer and developer focused on creating attractive and functional digital experiences.</p>
+      </div>
+      <div class="about-lists">
+        <div class="about-list">
+          <h3>Passions</h3>
+          <ul>
+            <li><span class="icon">🔥</span> Animations</li>
+            <li><span class="icon">🎨</span> UI/UX</li>
+            <li><span class="icon">💻</span> Clean Code</li>
+            <li><span class="icon">💡</span> Creative Solutions</li>
+          </ul>
+        </div>
+        <div class="about-list">
+          <h3>Skills</h3>
+          <ul>
+            <li><span class="icon">🌐</span> HTML</li>
+            <li><span class="icon">🎨</span> CSS</li>
+            <li><span class="icon">⚙️</span> JavaScript</li>
+            <li><span class="icon">⚛️</span> React</li>
+            <li><span class="icon">✨</span> GSAP</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    // GSAP animations for text
+    gsap.from(".about-text h2", {
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.3
+    });
+    gsap.from(".about-text p", {
+      y: 20,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.5
+    });
+    gsap.from(".about-list li", {
+      y: 30,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      stagger: 0.15,
+      delay: 0.8
+    });
+
+    // Background particle animation
+
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let particles = [];
+
+    function initCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = 1 + Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.alpha = 0.1 + Math.random() * 0.3;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > width) this.speedX *= -1;
+        if (this.y < 0 || this.y > height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(155,89,182,${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    function createParticles(num = 100) {
+      particles = [];
+      for(let i=0; i<num; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      for(let p of particles) {
+        p.update();
+        p.draw();
+      }
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+      initCanvas();
+      createParticles(100);
+    });
+
+    // Initialize first time
+    initCanvas();
+    createParticles(100);
+    animateParticles();
+  </script>
+
+</body>
+</html>

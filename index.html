@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iulia Benko - Front-End Developer</title>
+  <meta name="description" content="Iulia Benko is a creative front-end developer passionate about crafting modern, user-friendly web experiences." />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background-color: #1a1a2e;
+      color: #fff;
+      position: relative;
+    }
+
+    .top-right-buttons {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .top-right-buttons a {
+      padding: 0.5rem 1rem;
+      background: #C9B9E8;
+      color: #000;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 0 8px #C9B9E8;
+      transition: background 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .top-right-buttons a:hover,
+    .top-right-buttons a:focus {
+      background: #a88bd0;
+      box-shadow: 0 0 12px #a88bd0;
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    section {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 0 10%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .text {
+      max-width: 600px;
+    }
+
+    .text h1 {
+      font-size: 3rem;
+      color: #C9B9E8;
+      margin-bottom: 1rem;
+    }
+
+    .text h2 {
+      font-size: 2rem;
+      color: #C9B9E8;
+      margin-bottom: 1rem;
+    }
+
+    .text p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: #ccc;
+      margin-bottom: 2rem;
+    }
+
+    .text a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #C9B9E8;
+      color: #000;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    .text a:hover {
+      background: #a88bd0;
+      box-shadow: 0 0 8px #a88bd0;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 10%;
+      font-size: 0.9rem;
+      color: #ccc;
+      z-index: 1;
+      position: relative;
+    }
+
+    footer a {
+      color: #C9B9E8;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #a88bd0;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        justify-content: center;
+        padding: 5%;
+        text-align: center;
+      }
+
+      .top-right-buttons {
+        top: 10px;
+        right: 10px;
+        gap: 6px;
+      }
+
+      .top-right-buttons a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="background-canvas"></canvas>
+
+  <div class="top-right-buttons">
+    <a href="contact.html">Contact</a>
+    <a href="about-me.html">About Me</a>
+  </div>
+
+  <section>
+    <div class="text">
+      <h2>Hello, I’m</h2>
+      <h1>Iulia Benko</h1>
+      <p>I’m a creative front-end developer passionate about building beautiful and user-friendly websites and applications.</p>
+      <a href="portfolio.html">See My Work</a>
+    </div>
+  </section>
+
+  <footer>
+  <div>
+    <a href="terms.html">Terms and Conditions</a> |
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
+  <div style="margin-top: 1rem;">
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+
+  <!-- GSAP Animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    gsap.from(".text h2", { opacity: 0, x: -50, duration: 1, delay: 0.2 });
+    gsap.from(".text h1", { opacity: 0, x: -50, duration: 1, delay: 0.4 });
+    gsap.from(".text p",  { opacity: 0, x: -50, duration: 1, delay: 0.6 });
+    gsap.from(".text a",  { opacity: 0, y: 30, duration: 1, delay: 0.8 });
+  </script>
+
+  <!-- Background Canvas Animation -->
+  <script>
+    const canvas = document.getElementById('background-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+    const PARTICLE_COUNT = 60, MAX_DISTANCE = 100;
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.radius = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx = -this.vx;
+        if (this.y < 0 || this.y > height) this.vy = -this.vy;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+        ctx.shadowColor = "#C9B9E8";
+        ctx.shadowBlur = 5;
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function connectParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < MAX_DISTANCE) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / MAX_DISTANCE})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      connectParticles();
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+    resizeCanvas();
+    initParticles();
+    animateParticles();
+  </script>
+</body>
+</html>

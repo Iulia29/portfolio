@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brewly Café - Galerie CSS Grid cu descrieri și efecte</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #F9F3EC, #D9C9F4);
+      margin: 0;
+      padding: 40px 20px;
+      color: #3C2A4D;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1.title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      text-align: center;
+      background: linear-gradient(270deg, #9b59b6, #8e44ad, #9b59b6);
+      background-size: 600% 600%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: colorShift 10s ease infinite;
+    }
+
+    @keyframes colorShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .description {
+      max-width: 700px;
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #3C2A4D;
+      text-align: center;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeInText 1.5s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; }
+    }
+
+    .arrow-down {
+      font-size: 3rem;
+      color: #8e44ad;
+      animation: fadeInAndBounce 2s infinite;
+      cursor: default;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation-fill-mode: forwards;
+      animation-delay: 2s;
+    }
+
+    @keyframes fadeInAndBounce {
+      0% { opacity: 0; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(15px); }
+      100% { opacity: 0; transform: translateY(0); }
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-auto-rows: 200px;
+      gap: 20px;
+      max-width: 1100px;
+      width: 100%;
+      opacity: 0;
+      animation: fadeInGallery 1.5s ease forwards;
+      animation-delay: 3.5s;
+    }
+
+    @keyframes fadeInGallery {
+      to { opacity: 1; }
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(127, 110, 189, 0.3);
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(127, 110, 189, 0.6);
+      z-index: 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .four-grid-cells {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .wide-image {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 600px) {
+      .four-grid-cells,
+      .wide-image {
+        grid-column: span 1 !important;
+        grid-row: auto !important;
+      }
+
+      .gallery {
+        grid-auto-rows: 180px;
+      }
+    }
+
+    #lightbox-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(60, 42, 77, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    #lightbox-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(127, 110, 189, 0.9);
+      animation: zoomIn 0.4s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    #lightbox-overlay .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 3rem;
+      color: #f0e9ff;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    #lightbox-overlay .close-btn:hover {
+      color: #bdb0ff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 class="title">Brewly Café – For Coffee and Tea Lovers</h1>
+
+  <p class="description">
+    I’m thrilled to present Brewly Café, a website built for coffee and tea lovers! The project utilizes modern web
+    technologies to deliver a smooth, interactive user experience.<br><br>
+    🔧 Technologies & Features:<br>
+    HTML5, CSS3, JavaScript: Core technologies for structure, styling, and interactivity.<br>
+    CSS Animations: Engaging effects for smoother transitions and a dynamic visual experience.<br>
+    LocalStorage: Storing viewed products for returning users.<br>
+    Responsive Design: Perfectly optimized for all devices.<br>
+    Easy Navigation: Simple, user-friendly menu linking key sections.<br>
+    Product Details: Clear descriptions and images for each product.<br>
+    Admin Section: Hidden link for admin-only access to manage content.<br>
+    Customer Testimonials & Special Offers: Building trust and engagement.<br><br>
+    Brewly Café combines quality design and functional features to create a delightful browsing experience.
+  </p>
+
+  <div class="arrow-down">&#x2193;</div>
+
+  <div class="gallery">
+    <div class="gallery-item four-grid-cells" tabindex="0">
+      <img src="img/1.jpg" alt="Image 1" />
+    </div>
+    <div class="gallery-item" tabindex="0">
+      <img src="img/2.jpg" alt="Image 2" />
+    </div>
+    <div class="gallery-item wide-image" tabindex="0">
+      <img src="img/3.jpg" alt="Image 3" />
+    </div>
+    <div class="gallery-item" tabindex="0">
+      <img src="img/4.jpg" alt="Image 4" />
+    </div>
+    <div class="gallery-item" tabindex="0">
+      <img src="img/5.jpg" alt="Image 5" />
+    </div>
+    <div class="gallery-item wide-image" tabindex="0">
+      <img src="img/6.jpg" alt="Image 6" />
+    </div>
+    <div class="gallery-item" tabindex="0">
+      <img src="img/7.jpg" alt="Image 7" />
+    </div>
+  </div>
+
+  <div id="lightbox-overlay">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <img src="" alt="Zoomed Image" id="lightbox-img" />
+  </div>
+
+  <script>
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox-overlay');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        openLightbox(img.src, img.alt);
+      });
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const img = item.querySelector('img');
+          openLightbox(img.src, img.alt);
+        }
+      });
+    });
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+      document.body.style.overflow = 'auto';
+    }
+
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
